@@ -1,0 +1,47 @@
+body {
+  margin: 0;
+  background-color: rgb(197, 192, 179);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  color: rgb(92, 77, 77);
+}
+
+.container {
+  height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20px;
+}
+
+.showAnimals {
+  display: flex;
+
+  img {
+    width: 70%;
+  }
+
+  .animal {
+    width: 300px;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: white;
+    box-shadow: 1px 10px 10px 1px rgba(0, 0, 0, 0.5);
+
+    &--desc {
+      width: 80%;
+      font-size: 0.9em;
+    }
+  }
+
+  .animalLink {
+    color: rgb(92, 77, 77);
+    text-decoration: none;
+  }
+}

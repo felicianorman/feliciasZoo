@@ -1,0 +1,46 @@
+
+
+.eachAnimal {
+  margin-top: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .thisAnimal {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    height: auto;
+    align-items: center;
+    box-shadow: 1px 5px 5px 1px rgba(112, 109, 109, 0.5);
+    background-color: white;
+  }
+
+  img {
+    width: 40%;
+  }
+
+  p {
+    text-align: center;
+    width: 80%;
+    font-size: 0.9em;
+  }
+
+  .medicine {
+    font-weight: bold;
+  }
+
+  .latinName {
+    font-style: italic;
+  }
+
+  button {
+    margin-top: 2%;
+    background-color: red;
+
+    &:disabled {
+      background-color: green;
+      color: white;
+    }
+  }
+}
