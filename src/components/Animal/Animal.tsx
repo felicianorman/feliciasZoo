@@ -14,13 +14,15 @@ export const Animal = ({
   isFed,
   longDescription,
   latinName,
-  medicine
+  medicine,
+  lastFed,
 }: IAnimalProps) => {
   JSON.parse(localStorage.getItem("animals") || "[]");
 
   const params = useParams();
   const [isDisabled, setDisabled] = useState(false);
   const { animals } = useLoaderData() as Loader;
+  const [zooAnimal, setZooAnimal] = useState<IAnimalProps>();
 
   const [feedText, setFeedText] = useState("");
 
@@ -30,23 +32,29 @@ export const Animal = ({
     minute: "numeric",
     second: "numeric",
   }).format(timestamp);
-  localStorage.setItem("animals", JSON.stringify(animals));
+  // localStorage.setItem("animals", JSON.stringify(animals));
 
   const feedAnimal = () => {
     setDisabled(true);
-    setFeedText("Djuret matades kl: " + currentTime)
+    setFeedText("Djuret matades kl: " + currentTime);
 
     let index = animals.find((animal) => animal.id.toString() === params.id);
 
-    animals.map((animal) => {
+    //detta ska fixas
+    let fedAnimals = animals.map((animal) => {
       if (index?.id === animal.id) {
-        (animal.isFed = true), (animal.lastFed = currentTime.toString());
-
-        localStorage.setItem("animals", JSON.stringify(animal));
-        console.log(animal)
-        console.log(animals)
+        return {
+          ...animal,
+          lastFed: currentTime.toString(),
+          isFed: true,
+        };
+      } else {
+        return animal;
       }
     });
+
+    localStorage.setItem("animals", JSON.stringify(fedAnimals));
+    JSON.parse(localStorage.getItem("animals") || "[]");
   };
 
   return (
@@ -68,7 +76,6 @@ export const Animal = ({
             Mata djuret
           </button>
           <p>{feedText}</p>
-           
         </div>
       </div>
     </>
