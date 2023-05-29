@@ -1,4 +1,4 @@
-import { IAnimalProps } from "../components/AllAnimals/AllAnimals";
+import { IAnimalProps } from "./AllAnimals/AllAnimals";
 import notFoundImg from '../assets/crossed-image-icon-picture-not-available-delete-picture-symbol-free-vector.png'
 
 export const AnimalList = ({
@@ -8,6 +8,8 @@ export const AnimalList = ({
   name,
   shortDescription,
 }: IAnimalProps) => {
+
+
   return (
     <>
     <div className="animal">

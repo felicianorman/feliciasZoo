@@ -1,15 +1,14 @@
 import { useState } from "react";
-import { IAnimalProps } from "../AllAnimals/AllAnimals";
+
 import Navbar from "../Navbar/Navbar";
 import "./Animal.scss";
 import { useLoaderData, useParams } from "react-router";
 import { Loader } from "../../loaders/animalLoader";
 import notFoundImg from "../../assets/crossed-image-icon-picture-not-available-delete-picture-symbol-free-vector.png";
+import { IAnimalProps } from "../AllAnimals/AllAnimals";
 
 export const Animal = ({
-  id,
   imageUrl,
-  shortDescription,
   name,
   isFed,
   longDescription,
@@ -17,14 +16,13 @@ export const Animal = ({
   medicine,
   lastFed,
 }: IAnimalProps) => {
-  JSON.parse(localStorage.getItem("animals") || "[]");
+  const [isDisabled, setDisabled] = useState(false);
+  const [zooAnimal, setZooAnimal] = useState<IAnimalProps>();
+  const [feedText, setFeedText] = useState("");
+
+  const { animals } = useLoaderData() as Loader;
 
   const params = useParams();
-  const [isDisabled, setDisabled] = useState(false);
-  const { animals } = useLoaderData() as Loader;
-  const [zooAnimal, setZooAnimal] = useState<IAnimalProps>();
-
-  const [feedText, setFeedText] = useState("");
 
   const timestamp = Date.now();
   const currentTime = new Intl.DateTimeFormat("sv-EU", {
@@ -32,16 +30,23 @@ export const Animal = ({
     minute: "numeric",
     second: "numeric",
   }).format(timestamp);
-  // localStorage.setItem("animals", JSON.stringify(animals));
 
   const feedAnimal = () => {
-    setDisabled(true);
     setFeedText("Djuret matades kl: " + currentTime);
+    JSON.parse(localStorage.getItem("animals") || "[]");
 
     let index = animals.find((animal) => animal.id.toString() === params.id);
+    
 
-    //detta ska fixas
     let fedAnimals = animals.map((animal) => {
+      setZooAnimal({
+        ...animal,
+        name: name,
+        latinName: latinName,
+        longDescription: longDescription,
+        lastFed: lastFed,
+        isFed: isFed,
+      });
       if (index?.id === animal.id) {
         return {
           ...animal,
@@ -55,11 +60,24 @@ export const Animal = ({
 
     localStorage.setItem("animals", JSON.stringify(fedAnimals));
     JSON.parse(localStorage.getItem("animals") || "[]");
+    console.log(fedAnimals);
   };
+
+  const checkFeeding = () => {
+  if (isFed === false) {
+    setDisabled(true);
+
+    feedAnimal();
+  }
+
+  else {
+    alert("Du matade djuret kl  " + lastFed)
+  }
+}
 
   return (
     <>
-      <Navbar></Navbar>
+    <Navbar></Navbar>
       <div className="eachAnimal">
         <div className="thisAnimal">
           <h2>{name}</h2>
@@ -72,7 +90,7 @@ export const Animal = ({
           <span className="latinName">{latinName}</span>
           <p>{longDescription}</p>
           <span className="medicine">Mediciner: {medicine}</span>
-          <button onClick={feedAnimal} disabled={isDisabled}>
+          <button disabled={isDisabled} onClick={checkFeeding} className={isFed === false ? 'notFed' : 'fed'}>
             Mata djuret
           </button>
           <p>{feedText}</p>

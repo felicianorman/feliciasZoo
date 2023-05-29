@@ -1,8 +1,9 @@
-import AnimalList from "../../pages/AnimalList";
-import { Link, useLoaderData } from "react-router-dom";
-import Navbar from "../Navbar/Navbar";
+import { Link, useLoaderData, useParams } from "react-router-dom";
+import Navbar from "../../components/Navbar/Navbar";
 import { Loader } from "../../loaders/animalLoader";
-import './AllAnimals.scss'
+import "./AllAnimals.scss";
+import AnimalList from "../../pages/AnimalList";
+
 
 export interface IAnimalProps {
   id: number;

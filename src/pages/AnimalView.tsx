@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
-import { IAnimalProps } from "./AllAnimals/AllAnimals";
-import { Animal } from "./Animal/Animal";
+import { Animal } from "../components/Animal/Animal";
+import { IAnimalProps } from "../components/AllAnimals/AllAnimals";
 
 const AnimalView = () => {
   const params = useParams();

@@ -1,5 +1,5 @@
 import { useLoaderData } from "react-router";
-import { IAnimalProps } from "../components/AllAnimals/AllAnimals";
+import { IAnimalProps } from "../pages/AllAnimals/AllAnimals";
 import axios from "axios";
 
 export interface Loader {
